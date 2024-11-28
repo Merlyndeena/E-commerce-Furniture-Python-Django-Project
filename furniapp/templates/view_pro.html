@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-24 grid-margin stretch-card table-responsive">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">View Product Details</h4>
+
+                    </p>
+                    <table class="table table-responsive">
+                      <thead>
+                        <tr>
+                          <th>Category Name</th>
+                          <th>Product Name</th>
+                          <th>Product Quantity</th>
+                          <th>Product Amount</th>
+                          <th width="50px">Product Description</th>
+                            <th>Country Of Origin</th>
+                            <th>Manufactured By</th>
+                            <th>Image1</th>
+                            <th>Image2</th>
+                            <th>Image3</th>
+
+
+
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in pro %}
+                        <tr>
+                          <td>{{i.cat_name}}</td>
+                          <td>{{i.p_name}}</td>
+                          <td>{{i.p_quan}}</td>
+                          <td>{{i.p_mrp}}</td>
+                          <td>{{i.p_desc}}</td>
+                          <td>{{i.p_coo}}</td>
+                          <td>{{i.p_manu}}</td>
+                           <td><img src="{{i.p_img1.url}}" width="100px" height="100px"></td>
+                           <td><img src="{{i.p_img2.url}}" width="100px" height="100px"></td>
+                           <td><img src="{{i.p_img3.url}}" width="100px" height="100px"></td>
+
+
+
+
+                            <td><a href="{% url 'edit_pro' p_id=i.id %}"><button class="btn btn-primary">Edit</button></a>
+                            <a href="{% url 'delete_pro' p_id=i.id %}"><button class="btn btn-primary">Delete</button></a></td>
+                        </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'success' %}
+            <script>
+                swal('{{i}}','','success');
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}','','error');
+            </script>
+         {% elif i.tags == 'warning' %}
+            <script>
+                swal('{{i}}','','warning');
+            </script>
+         {% else %}
+            <script>
+                swal('{{i}}','','info');
+            </script>
+
+         {% endif %}
+    {% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}
